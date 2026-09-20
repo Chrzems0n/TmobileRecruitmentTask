@@ -1,0 +1,48 @@
+package com.example.pages;
+
+import org.openqa.selenium.By;
+
+public class TMobileHomePage extends BasePage {
+
+    private static final String HOME_URL = "https://www.t-mobile.pl";
+    private static final String TOP_BAR_ITEM_TEMPLATE = "//button[contains(@class,'ods-typography') and normalize-space()='%s']";
+    private static final By LOGO_T_MOBILE = By.xpath("//*[@title='T-Mobile Logo']");
+    private static final By SHOP_MENU = By.xpath("//button[normalize-space()='Sklep']");
+    private static final By SMARTPHONES_SECTION = By.xpath("//div[contains(normalize-space(.), 'Smartfony')]//*[self::a or self::button or self::span][normalize-space()='Smartfony']");
+    private static final By WITHOUT_CONTRACT_LINK = By.xpath("//a[normalize-space()='Bez abonamentu' or contains(normalize-space(.), 'Bez abonamentu')]");
+    private static final By CART_LINK = By.xpath("//a[normalize-space()='Koszyk' or normalize-space()='Cart' or contains(normalize-space(.), 'Koszyk')]");
+    private static final By PODMENU = By.xpath("//*[@aria-label='Podmenu' and @aria-hidden='false']//li[contains(@class,'ods-typography')]");
+    public void open() {
+        open(HOME_URL);
+        waitForElementIsVisible(LOGO_T_MOBILE);
+    }
+
+    public void acceptCookies() {
+        acceptCookiesIfVisible();
+    }
+
+    public void openShopMenu() {
+        click(SHOP_MENU);
+    }
+
+    public void clickTopBarItem(String itemName) {
+        click(topBarItemLocator(itemName));
+    }
+
+    private By topBarItemLocator(String itemName) {
+        return By.xpath(String.format(TOP_BAR_ITEM_TEMPLATE, escapeXPath(itemName)));
+    }
+
+    public void clickByPattern(String itemName) {
+        driver.findElement(topBarItemLocator(itemName)).click();
+    }
+
+    public void openSmartphonesWithoutContract() {
+        waitForElementIsClickable(SMARTPHONES_SECTION).click();
+        waitForElementIsClickable(WITHOUT_CONTRACT_LINK).click();
+    }
+
+    public void openCart() {
+        click(CART_LINK);
+    }
+}
