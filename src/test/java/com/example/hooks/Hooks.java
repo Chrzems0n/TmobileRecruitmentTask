@@ -33,13 +33,16 @@ public class Hooks {
             WebDriver driver = WebDriverProvider.getDriver();
             if (scenario.isFailed() && driver instanceof TakesScreenshot takesScreenshot) {
                 byte[] screenshot = takesScreenshot.getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", "failure-screenshot");
-                Allure.addAttachment("Failure screenshot", "image/png", new ByteArrayInputStream(screenshot), ".png");
+                Allure.addAttachment(
+                        "Failure screenshot",
+                        "image/png",
+                        new ByteArrayInputStream(screenshot),
+                        ".png"
+                );
             }
         } catch (IllegalStateException ignored) {
-            // no-op if driver was not initialized
         } finally {
-            //WebDriverProvider.quitDriver();
+           // WebDriverProvider.quitDriver();
         }
     }
 }

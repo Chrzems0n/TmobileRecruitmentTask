@@ -19,32 +19,16 @@ public class OpenPageSteps {
     private final ProductPage productPage = new ProductPage();
     private final CartPage cartPage = new CartPage();
 
-    private int priceFromProductPageOnStart;
-    private int priceFromProductPageMonthly;
-    private int productPrice;
-    private String deviceName;
+    private int PRICE_FROM_PRODUCT_PAGE_ON_START;
+    private int PRICE_FROM_PRODUCT_PAGE_MONTHLY;
+    private int PRODUCT_PRICE;
+    private String DEVICE_NAME;
 
 
     @Given("Otwórz stronę główną T-Mobile")
     public void theUserOpensTheTMobileHomepage() {
         homePage.open();
         homePage.acceptCookies();
-    }
-
-    @And("accepts cookies")
-    public void acceptsCookies() {
-        homePage.acceptCookies();
-    }
-
-    @And("AddSomething {string}")
-    public void addSomething(String something) {
-        System.out.println("Adding something: " + something);
-
-    }
-
-    @And("selects shop menu")
-    public void selectsShopMenu() {
-        homePage.openShopMenu();
     }
 
     @And("Kliknij \"Bez abonamentu\" z sekcji \"Smartfony\"")
@@ -58,11 +42,6 @@ public class OpenPageSteps {
         smartphonesPage.clickDeviceFromList(deviceName);
     }
 
-    @Then("product page is visible")
-    public void productPageIsVisible() {
-        assertTrue(productPage.isProductPageVisible(), "Product page should be visible");
-    }
-
     @And("Z górnej belki wybierz {string}")
     public void addItemsss(String itemName) {
         homePage.clickByPattern(itemName);
@@ -70,10 +49,10 @@ public class OpenPageSteps {
 
     @When("Dodaj produkt do koszyka")
     public void theUserAddsTheProductToTheCart() {
-        priceFromProductPageOnStart = productPage.getProductOnStartPriceValue();
-        priceFromProductPageMonthly = productPage.getProductMonthlyPriceValue();
-        deviceName = productPage.getProductName();
-        productPrice = productPage.getDeviceTotalPriceValue();
+        PRICE_FROM_PRODUCT_PAGE_ON_START = productPage.getProductOnStartPriceValue();
+        PRICE_FROM_PRODUCT_PAGE_MONTHLY = productPage.getProductMonthlyPriceValue();
+        DEVICE_NAME = productPage.getProductName();
+        PRODUCT_PRICE = productPage.getDeviceTotalPriceValue();
 
         productPage.addToCart();
     }
@@ -84,14 +63,14 @@ public class OpenPageSteps {
         System.out.println("Product name: " + cartPage.getProductName());
         System.out.println("Product price on start: " + cartPage.getProductOnStartPrice());
         System.out.println("Product monthly price: " + cartPage.getProductMonthlyPrice());
-        System.out.println("Product total price: " + productPrice);
+        System.out.println("Product total price: " + PRODUCT_PRICE);
     }
 
     @Then("Zweryfikuj ceny na stronie koszyka")
     public void verifyPricesOnCartPage() {
-        assertEquals(priceFromProductPageOnStart, cartPage.getProductOnStartPrice(), "Cena na start produktu  nie zgadza się");
-        assertEquals(priceFromProductPageMonthly, cartPage.getProductMonthlyPrice(), "Cena miesięczna produktu  nie zgadza się");
-        assertEquals(productPrice, cartPage.getProductTotalPrice(), "Cena za urządzenie nie zgadza się");
+        assertEquals(PRICE_FROM_PRODUCT_PAGE_ON_START, cartPage.getProductOnStartPrice(), "Cena na start produktu  nie zgadza się");
+        assertEquals(PRICE_FROM_PRODUCT_PAGE_MONTHLY, cartPage.getProductMonthlyPrice(), "Cena miesięczna produktu  nie zgadza się");
+        assertEquals(PRODUCT_PRICE, cartPage.getProductTotalPrice(), "Cena za urządzenie nie zgadza się");
     }
 
     @And("Kliknij ikonę koszyka")
@@ -102,6 +81,6 @@ public class OpenPageSteps {
 
     @Then("Zweryfikuj czy urządzenie jest widoczne w koszyku")
     public void verifyDeviceInCart() {
-        assertTrue(cartPage.getProductName().contains(deviceName), "Product should be in cart");
+        assertTrue(cartPage.getProductName().contains(DEVICE_NAME), "Product should be in cart");
     }
 }
