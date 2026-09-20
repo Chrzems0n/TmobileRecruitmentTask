@@ -16,7 +16,11 @@ import java.time.Duration;
 public class Hooks {
 
     @Before
-    public void setUp() {
+    public void setUp(Scenario scenario) {
+        if (scenario.getSourceTagNames().contains("@api")) {
+            return;
+        }
+
         WebDriver driver = WebDriverFactory.createDriver(System.getProperty("browser", "firefox"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();

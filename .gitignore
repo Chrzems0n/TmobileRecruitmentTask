@@ -1,9 +1,20 @@
 target/
+.allure/
+*.log
+hs_err_pid*
+
+# Maven and test reports
+surefire-reports/
+failsafe-reports/
+allure-results/
+allure-report/
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
+.idea/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
