@@ -2,16 +2,15 @@ package com.example.pages;
 
 import com.example.helpers.TextParser;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import java.util.List;
 
 public class CartPage extends BasePage {
 
-    private static final By CART_TITLE = By.xpath("//*[contains(normalize-space(.), 'Twój koszyk') or contains(normalize-space(.), 'Koszyk')][1]");
-    private static final By CART_PRODUCT_NAME=By.xpath("//*[@data-qa='BKT_ItemTitle0']");
+    private static final By CART_TITLE = By.xpath("//*[@id='basket-main-middle-section']//h1[contains(.,'Twój koszyk')]");
+    private static final By CART_PRODUCT_NAME=By.xpath("//*[contains(@data-qa,'BKT_ItemTitle')]");
     private static final By CART_PRODUCT_ON_START_PRICE=By.xpath("//*[@data-qa='BKT_ItemUpFrontCurrCOde']");
     private static final By CART_PRODUCT_MONTHLY_PRICE=By.xpath("//*[@data-qa='BKT_ItemMonthlyCurrCOde']");
+    private static final By CART_PRODUCT_TOTAL_PRICE=By.xpath("//*[@data-qa='BKT_Activation']");
 
     public boolean isCartVisible() {
         return isDisplayed(CART_TITLE);
@@ -43,8 +42,11 @@ public class CartPage extends BasePage {
         return TextParser.parseInt(price.trim());
     }
 
-
-    public String getCartSummaryText() {
-        return getText(CART_TITLE);
+    public int getProductTotalPrice() {
+        waitForElementIsVisible(CART_PRODUCT_TOTAL_PRICE);
+        String price = getText(CART_PRODUCT_TOTAL_PRICE);
+        System.out.println("Product total price in cart: " + price);
+        return TextParser.parseInt(price.trim());
     }
+
 }

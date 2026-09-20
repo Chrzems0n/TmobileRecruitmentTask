@@ -11,5 +11,6 @@ And Kliknij element o nazwie "Samsung Galaxy A37 5G"
 And Otwórz stronę główną T-Mobile
     And Kliknij ikonę koszyka
     Then Zweryfikuj ceny na stronie koszyka
+      Then Zweryfikuj czy urządzenie jest widoczne w koszyku
 
 

@@ -19,6 +19,10 @@ public class ProductPage extends BasePage {
                     "and normalize-space(.)='Dodaj do koszyka']"
     );
 
+    private static final By DEVICE_TOTAL_PRICE= By.xpath("//article[contains(@class,'Price')]//span");
+
+    private static final  By PRODUCT_PAGE_PRODUCT_NAME= By.xpath("//*[contains(@data-qa,'PRD_ProductName')]");
+
     public boolean isProductPageVisible() {
         return isDisplayed(PRODUCT_TITLE);
     }
@@ -45,6 +49,21 @@ public class ProductPage extends BasePage {
 
     public int getProductMonthlyPriceValue() {
         return TextParser.parseInt(getProductMonthlyPriceText().trim());
+    }
+
+    public String getProductName() {
+        waitForElementIsVisible( PRODUCT_PAGE_PRODUCT_NAME);
+        String productName = getText( PRODUCT_PAGE_PRODUCT_NAME);
+        return productName.trim();
+    }
+
+    public String getDeviceTotalPriceText() {
+        WebElement priceElement = waitForElementIsVisible(DEVICE_TOTAL_PRICE);
+        return priceElement.getText().trim();
+    }
+
+    public int getDeviceTotalPriceValue() {
+        return TextParser.parseInt(getDeviceTotalPriceText().trim());
     }
 
 
