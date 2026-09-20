@@ -11,7 +11,6 @@ public class TMobileHomePage extends BasePage {
     private static final By SMARTPHONES_SECTION = By.xpath("//div[contains(normalize-space(.), 'Smartfony')]//*[self::a or self::button or self::span][normalize-space()='Smartfony']");
     private static final By WITHOUT_CONTRACT_LINK = By.xpath("//a[normalize-space()='Bez abonamentu' or contains(normalize-space(.), 'Bez abonamentu')]");
     private static final By CART_LINK = By.xpath("//a[normalize-space()='Koszyk' or normalize-space()='Cart' or contains(normalize-space(.), 'Koszyk')]");
-    //private static final By PODMENU = By.xpath("//*[@aria-label='Podmenu' and @aria-hidden='false']//li[contains(@class,'ods-typography')]");
     private static final By IKONA_KOSZYKA = By.xpath("//*[@aria-label='Koszyk']");
     public void open() {
         open(HOME_URL);
@@ -33,16 +32,17 @@ public class TMobileHomePage extends BasePage {
 
     public void clickByPattern(String itemName) {
         driver.findElement(topBarItemLocator(itemName)).click();
+        waitForElementIsVisible(SMARTPHONES_SECTION);
     }
 
     public void openSmartphonesWithoutContract() {
-        waitForElementIsClickable(SMARTPHONES_SECTION).click();
+        waitForElementIsClickable(SMARTPHONES_SECTION);
         waitForElementIsClickable(WITHOUT_CONTRACT_LINK).click();
     }
 
 
     public void clickOnBasketIcon() {
-        waitForElementIsVisible(IKONA_KOSZYKA);
+        waitForElementIsClickable(IKONA_KOSZYKA);
         click(IKONA_KOSZYKA);
     }
 }
