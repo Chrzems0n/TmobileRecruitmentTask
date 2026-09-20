@@ -1,12 +1,15 @@
-Feature: T-Mobile smartphone purchase flow
+Feature: T-Mobile Simfree - weryfikacja koszyka
 
-  Scenario: User buys a smartphone without contract and verifies cart
+  Scenario: Wybranie telefonu z listy ofert i weryfikacja cen w koszyku
 Given Otwórz stronę główną T-Mobile
 And Z górnej belki wybierz "Sklep"
 And Kliknij "Bez abonamentu" z sekcji "Smartfony"
 And Kliknij element o nazwie "Samsung Galaxy A37 5G"
-   # And Z górnej belki wybierz "Sklep"
     And Dodaj produkt do koszyka
-    And Kliknij element o nazwie "Samsung Galaxy A37 5G"
+    And wyswietl ceny
+    Then Zweryfikuj ceny na stronie koszyka
+And Otwórz stronę główną T-Mobile
+    And Kliknij ikonę koszyka
+    Then Zweryfikuj ceny na stronie koszyka
 
 

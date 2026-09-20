@@ -9,6 +9,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OpenPageSteps {
@@ -18,8 +19,9 @@ public class OpenPageSteps {
     private final ProductPage productPage = new ProductPage();
     private final CartPage cartPage = new CartPage();
 
-    private int ProductPriceOnStart;
-    private int ProductPriceMonthly;
+    private int priceFromProductPageOnStart;
+    private int priceFromProductPageMonthly;
+
 
     @Given("Otwórz stronę główną T-Mobile")
     public void theUserOpensTheTMobileHomepage() {
@@ -43,13 +45,6 @@ public class OpenPageSteps {
         homePage.openShopMenu();
     }
 
-  //  @Given("wybierz gornego paska {string}")
-   // @And("wybierz gornego paska {string}")
-   // @When("wybierz gornego paska {string}")
-   // public void wybierzGornegoPaska(String itemName) {
-     //   homePage.clickTopBarItem(itemName);
-    //}
-
     @And("Kliknij \"Bez abonamentu\" z sekcji \"Smartfony\"")
     public void choosesBezAbonamentuOptionInSmartfonySection() {
         homePage.openSmartphonesWithoutContract();
@@ -59,8 +54,8 @@ public class OpenPageSteps {
     public void selectsDevice(String deviceName) {
 
         smartphonesPage.clickDeviceFromList(deviceName);
-     //   this.selectedDeviceName = deviceName;
-       // smartphonesPage.openDeviceByName(deviceName);
+        //   this.selectedDeviceName = deviceName;
+        // smartphonesPage.openDeviceByName(deviceName);
     }
 
     @Then("product page is visible")
@@ -69,17 +64,14 @@ public class OpenPageSteps {
     }
 
     @And("Z górnej belki wybierz {string}")
-        public void addItemsss(String itemName) {
+    public void addItemsss(String itemName) {
         homePage.clickByPattern(itemName);
     }
 
     @When("Dodaj produkt do koszyka")
     public void theUserAddsTheProductToTheCart() {
-        ProductPriceOnStart = productPage.getProductOnStartPriceValue();
-        ProductPriceMonthly = productPage.getProductMonthlyPriceValue();
-
-        System.out.println("Product price on start: " + ProductPriceOnStart);
-        System.out.println("Product monthly price: " + ProductPriceMonthly);
+        priceFromProductPageOnStart = productPage.getProductOnStartPriceValue();
+        priceFromProductPageMonthly = productPage.getProductMonthlyPriceValue();
         productPage.addToCart();
     }
 
@@ -104,8 +96,27 @@ public class OpenPageSteps {
         homePage.openCart();
     }
 
-    @Then("the cart contains \"([^\"]+)\"")
-    public void theCartContains(String productName) {
-        assertTrue(cartPage.containsProduct(productName), "Cart should contain product: " + productName);
+
+    @And("wyswietl ceny")
+    public void wyswietlCeny() {
+        System.out.println("Product name: " + cartPage.getProductName());
+        System.out.println("Product price on start: " + cartPage.getProductOnStartPrice());
+        System.out.println("Product monthly price: " + cartPage.getProductMonthlyPrice());
+    }
+
+    @Then("Zweryfikuj ceny na stronie koszyka")
+    public void verifyPricesOnCartPage() {
+        assertEquals(priceFromProductPageOnStart, cartPage.getProductOnStartPrice(), "Cena na start produktu  nie zgadza się");
+        assertEquals(priceFromProductPageMonthly, cartPage.getProductMonthlyPrice(), "Cena miesięczna produktu  nie zgadza się");
+    }
+
+    @And("Kliknij ikonę koszyka")
+    public void clickOnBasketIcon() {
+        homePage.clickOnBasketIcon();
+        cartPage.waitForCartToBeVisible();
+    }
+
+    @Then("Zweryfikuj czy urządzenie jest widoczne w koszyku")
+    public void verifyDeviceInCart() {
     }
 }

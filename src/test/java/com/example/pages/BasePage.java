@@ -17,6 +17,7 @@ public abstract class BasePage {
     private static final Logger log = LoggerFactory.getLogger(BasePage.class);
     protected final WebDriver driver;
     protected final WebDriverWait wait;
+    private boolean cookiesAccepted;
 
     protected BasePage() {
         this.driver = WebDriverProvider.getDriver();
@@ -61,11 +62,14 @@ public abstract class BasePage {
     }
 
     protected void acceptCookiesIfVisible() {
-
+        if (cookiesAccepted) {
+            return;
+        }
         try{
             By cookieButton = By.xpath("//button[normalize-space()='Akceptuję wszystkie' or normalize-space()='Accept all']");
-           waitForElementIsVisible(cookieButton).click();
-    }
+            waitForElementIsVisible(cookieButton).click();
+            cookiesAccepted = true;
+        }
         catch (Exception e){
             log.info("No cookie banner found, continuing...");
         }
@@ -80,7 +84,14 @@ public abstract class BasePage {
         actions.click(element).perform();
     }
 
-    //abstract public void waitforPageIsReadyForActions();
+    protected void scrollToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
 
-    //}
+    protected void waitScrollToElementAndClick(WebElement element) {
+        scrollToElement(element);
+        waitForElementIsClickable(element).click();
+    }
+
 }
