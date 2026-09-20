@@ -18,7 +18,6 @@ public class OpenPageSteps {
     private final ProductPage productPage = new ProductPage();
     private final CartPage cartPage = new CartPage();
 
-    private String selectedDeviceName;
     private int ProductPriceOnStart;
     private int ProductPriceMonthly;
 
@@ -70,7 +69,7 @@ public class OpenPageSteps {
     }
 
     @And("Z górnej belki wybierz {string}")
-        public void addItemsss(String itemName) throws InterruptedException {
+        public void addItemsss(String itemName) {
         homePage.clickByPattern(itemName);
     }
 

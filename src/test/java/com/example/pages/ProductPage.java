@@ -33,7 +33,6 @@ public class ProductPage extends BasePage {
     }
 
     public int getProductOnStartPriceValue() {
-        WebElement priceElement = waitForElementIsVisible(DO_ZAPLATY_NA_START);
         return TextParser.parseInt(getProductOnStartPriceText().trim());
     }
 
@@ -45,7 +44,6 @@ public class ProductPage extends BasePage {
     }
 
     public int getProductMonthlyPriceValue() {
-        WebElement priceElement = waitForElementIsVisible(DO_ZAPLATY_MIESIECZNIE);
         return TextParser.parseInt(getProductMonthlyPriceText().trim());
     }
 

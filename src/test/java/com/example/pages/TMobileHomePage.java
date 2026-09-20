@@ -25,9 +25,6 @@ public class TMobileHomePage extends BasePage {
         click(SHOP_MENU);
     }
 
-    public void clickTopBarItem(String itemName) {
-        click(topBarItemLocator(itemName));
-    }
 
     private By topBarItemLocator(String itemName) {
         return By.xpath(String.format(TOP_BAR_ITEM_TEMPLATE, escapeXPath(itemName)));
