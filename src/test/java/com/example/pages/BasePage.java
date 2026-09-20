@@ -45,6 +45,10 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    protected void waitForUrlContains(String url) {
+        wait.until(ExpectedConditions.urlContains(url));
+    }
+
     protected void click(By locator) {
         waitForElementIsClickable(locator).click();
     }
@@ -80,6 +84,12 @@ public abstract class BasePage {
     }
 
     protected void clickByAction(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.click(element).perform();
+    }
+
+    protected void clickByAction(By locator) {
+        WebElement element = waitForElementIsClickable(locator);
         Actions actions = new Actions(driver);
         actions.click(element).perform();
     }

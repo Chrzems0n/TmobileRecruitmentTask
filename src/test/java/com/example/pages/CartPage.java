@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class CartPage extends BasePage {
 
-    private static final By CART_TITLE = By.xpath("//*[@id='basket-main-middle-section']//h1[contains(.,'Twój koszyk')]");
+    private static final By CART_TITLE = By.xpath("//*[normalize-space()='Twój koszyk']");
     private static final By CART_PRODUCT_NAME=By.xpath("//*[contains(@data-qa,'BKT_ItemTitle')]");
     private static final By CART_PRODUCT_ON_START_PRICE=By.xpath("//*[@data-qa='BKT_ItemUpFrontCurrCOde']");
     private static final By CART_PRODUCT_MONTHLY_PRICE=By.xpath("//*[@data-qa='BKT_ItemMonthlyCurrCOde']");
