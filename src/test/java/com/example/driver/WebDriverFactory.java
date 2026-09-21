@@ -5,11 +5,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 
 public final class WebDriverFactory {
-
+    private static final Logger log = LoggerFactory.getLogger(WebDriverFactory.class);
     private WebDriverFactory() {
     }
 
@@ -26,14 +28,14 @@ public final class WebDriverFactory {
 
     private static WebDriver createChromeDriver() {
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless=false");
+        options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("-- --disable-notifications");
+        options.addArguments(" --disable-notifications");
 
-        System.out.println("Chrome driver created with options: " + options);
+        log.info("Chrome driver created with options: {}", options);
         return new ChromeDriver(options);
     }
 
@@ -41,8 +43,8 @@ public final class WebDriverFactory {
         FirefoxOptions options = new FirefoxOptions();
         options.addPreference("dom.webnotifications.enabled", false);
         options.addPreference("signon.rememberSignons", false);
-        //options.addArguments("--headless=false");
-        System.out.println("Firefox driver created with options: " + options);
+        options.addArguments("-headless");
+        log.info("Firefox driver created with options: {}", options);
         return new FirefoxDriver(options);
     }
 

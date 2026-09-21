@@ -4,18 +4,23 @@ import com.example.client.NbpApiClient;
 import com.example.helpers.AllureHelper;
 import com.example.helpers.CurrencyRateFormatter;
 import com.example.model.CurrencyRate;
+
 import com.example.service.CurrencyRateService;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class NbpExchangeRatesSteps {
+
+    private static final Logger log = LoggerFactory.getLogger(NbpExchangeRatesSteps.class);
 
     private final NbpApiClient apiClient = new NbpApiClient();
     private final CurrencyRateService currencyRateService = new CurrencyRateService();
@@ -26,8 +31,10 @@ public class NbpExchangeRatesSteps {
         Response response = apiClient.fetchTableA();
         int statusCode = response.statusCode();
         String responseBody = response.asPrettyString();
+        log.info("Kod odpowiedzi API NBP: {}", statusCode);
 
-        System.out.println("Kod odpowiedzi API NBP: " + statusCode);
+
+
         AllureHelper.addTextAttachment("Kod odpowiedzi API NBP", String.valueOf(statusCode));
         Allure.addAttachment("Odpowiedź API NBP", "application/json", responseBody);
 
@@ -42,7 +49,8 @@ public class NbpExchangeRatesSteps {
         CurrencyRate rate = currencyRateService.findByCode(rates, code);
         String message = String.format(
                 "Kurs dla kodu %s (%s): %s", rate.code(), rate.currency(), rate.mid());
-        System.out.println(message);
+
+        log.info("Kurs dla kodu {} ({}): {}", rate.code(), rate.currency(), rate.mid());
         AllureHelper.addTextAttachment("Kurs dla kodu " + code, message);
     }
 
@@ -52,7 +60,7 @@ public class NbpExchangeRatesSteps {
 
         String message = String.format(
                 "Kurs dla waluty %s (%s): %s", rate.currency(), rate.code(), rate.mid());
-        System.out.println(message);
+        log.info(message);
         AllureHelper.addTextAttachment("Kurs dla waluty " + currencyName, message);
     }
 
@@ -63,7 +71,7 @@ public class NbpExchangeRatesSteps {
         assertFalse(matchingRates.isEmpty(), "Brak walut o kursie powyżej " + threshold);
         String message = CurrencyRateFormatter.formatRates(
                 String.format("Waluty o kursie powyżej %s", threshold), matchingRates);
-        System.out.println(message);
+        log.info(message);
         AllureHelper.addTextAttachment("Waluty powyżej " + threshold, message);
     }
 
@@ -74,7 +82,7 @@ public class NbpExchangeRatesSteps {
         assertFalse(matchingRates.isEmpty(), "Brak walut o kursie poniżej " + threshold);
         String message = CurrencyRateFormatter.formatRates(
                 String.format("Waluty o kursie poniżej %s", threshold), matchingRates);
-        System.out.println(message);
+        log.info(message);
         AllureHelper.addTextAttachment("Waluty poniżej " + threshold, message);
     }
 }

@@ -78,7 +78,7 @@ public abstract class BasePage {
             cookiesAccepted = true;
         }
         catch (Exception e){
-            log.info("No cookie banner found, continuing...");
+            log.info("Nie znaleziono przycisku akceptacji cookies, kontynuuję bez akceptacji.");
         }
     }
 
@@ -94,7 +94,10 @@ public abstract class BasePage {
     protected void clickByAction(By locator) {
         WebElement element = waitForElementIsClickable(locator);
         Actions actions = new Actions(driver);
-        actions.click(element).perform();
+        actions.moveToElement(element)
+                .pause(Duration.ofMillis(300))
+                .click()
+                .perform();
     }
 
     protected void scrollToElement(WebElement element) {
