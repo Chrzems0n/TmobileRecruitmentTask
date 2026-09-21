@@ -18,29 +18,24 @@ public class CartPage extends BasePage {
     }
 
     public String getProductName() {
-        waitForElementIsVisible(CART_PRODUCT_NAME);
         String productName = getText(CART_PRODUCT_NAME);
-
         System.out.println("Product name in cart: " + productName);
         return productName.trim();
     }
 
-    public int getProductOnStartPrice() {
-        waitForElementIsVisible(CART_PRODUCT_ON_START_PRICE);
+    public int getProductOnStartPrice() {;
         String price = getText(CART_PRODUCT_ON_START_PRICE);
         System.out.println("Product price on start in cart: " + price);
         return TextParser.parseInt(price.trim());
     }
 
     public int getProductMonthlyPrice() {
-        waitForElementIsVisible(CART_PRODUCT_MONTHLY_PRICE);
         String price = getText(CART_PRODUCT_MONTHLY_PRICE);
         System.out.println("Product monthly price in cart: " + price);
         return TextParser.parseInt(price.trim());
     }
 
     public int getProductTotalPrice() {
-        waitForElementIsVisible(CART_PRODUCT_TOTAL_PRICE);
         String price = getText(CART_PRODUCT_TOTAL_PRICE);
         System.out.println("Product total price in cart: " + price);
         return TextParser.parseInt(price.trim());

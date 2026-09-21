@@ -69,6 +69,7 @@ public class OpenPageSteps {
 
     @Then("Zweryfikuj ceny na stronie koszyka")
     public void verifyPricesOnCartPage() {
+        cartPage.waitForCartToBeVisible();
         assertEquals(PRICE_FROM_PRODUCT_PAGE_ON_START, cartPage.getProductOnStartPrice(), "Cena na start produktu  nie zgadza się");
         assertEquals(PRICE_FROM_PRODUCT_PAGE_MONTHLY, cartPage.getProductMonthlyPrice(), "Cena miesięczna produktu  nie zgadza się");
         assertEquals(PRODUCT_PRICE, cartPage.getProductTotalPrice(), "Cena za urządzenie nie zgadza się");
@@ -82,6 +83,6 @@ public class OpenPageSteps {
 
     @Then("Zweryfikuj czy urządzenie jest widoczne w koszyku")
     public void verifyDeviceInCart() {
-        assertTrue(cartPage.getProductName().contains(DEVICE_NAME), "Product should be in cart");
+        assertTrue(cartPage.getProductName().contains(DEVICE_NAME), "Urządzenie powinno być widoczne w koszyyku");
     }
 }

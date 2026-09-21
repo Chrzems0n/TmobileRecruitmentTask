@@ -33,8 +33,6 @@ public class SmartphonesPage extends BasePage {
     public void waitForSmartphonesPageToBeVisible() {
         waitForElementIsVisible(SMARTHPHONES_LIST);
     }
-    public boolean isPageVisible() {
-        return isDisplayed(By.xpath("//*[contains(normalize-space(.), 'Smartfony') or contains(normalize-space(.), 'telefony')][1]"));
-    }
+
 
 }

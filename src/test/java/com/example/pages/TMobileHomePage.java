@@ -21,11 +21,6 @@ public class TMobileHomePage extends BasePage {
         acceptCookiesIfVisible();
     }
 
-    public void openShopMenu() {
-        click(SHOP_MENU);
-    }
-
-
     private By topBarItemLocator(String itemName) {
         return By.xpath(String.format(TOP_BAR_ITEM_TEMPLATE, escapeXPath(itemName)));
     }
