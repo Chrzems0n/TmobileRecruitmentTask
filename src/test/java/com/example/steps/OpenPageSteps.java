@@ -49,11 +49,12 @@ public class OpenPageSteps {
 
     @When("Dodaj produkt do koszyka")
     public void theUserAddsTheProductToTheCart() {
+
+        productPage.waitForProductPageToBeVisible();
         PRICE_FROM_PRODUCT_PAGE_ON_START = productPage.getProductOnStartPriceValue();
         PRICE_FROM_PRODUCT_PAGE_MONTHLY = productPage.getProductMonthlyPriceValue();
         DEVICE_NAME = productPage.getProductName();
         PRODUCT_PRICE = productPage.getDeviceTotalPriceValue();
-
         productPage.addToCart();
     }
 

@@ -9,7 +9,7 @@ Polecenia należy wykonywać w katalogu głównym projektu, w którym znajduje s
 Uruchomienie wyłącznie scenariusza API oznaczonego tagiem `@api`:
 
 ```powershell
-mvn clean test "-Dcucumber.filter.tags=@api"; if ($?) { mvn allure:serve }
+mvn clean test "-Dcucumber.filter.tags=@api"; mvn allure:serve
 ```
 
 Polecenie:
@@ -22,7 +22,7 @@ Polecenie:
 ## Wszystkie testy GUI w Chrome + raport Allure
 
 ```powershell
-mvn clean test "-Dbrowser=chrome"; if ($?) { mvn allure:serve }
+mvn clean test "-Dbrowser=chrome";  mvn allure:serve 
 ```
 
 To polecenie uruchamia zarówno scenariusz API, jak i scenariusz GUI z użyciem przeglądarki Chrome, a następnie otwiera raport Allure.
@@ -30,7 +30,7 @@ To polecenie uruchamia zarówno scenariusz API, jak i scenariusz GUI z użyciem 
 ## Wszystkie testy GUI w Firefox + raport Allure
 
 ```powershell
-mvn clean test "-Dbrowser=firefox"; if ($?) { mvn allure:serve }
+mvn clean test "-Dbrowser=firefox";  mvn allure:serve
 ```
 
 To polecenie uruchamia zarówno scenariusz API, jak i scenariusz GUI z użyciem przeglądarki Firefox, a następnie otwiera raport Allure.

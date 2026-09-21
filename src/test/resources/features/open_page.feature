@@ -4,9 +4,8 @@ Feature: T-Mobile Simfree - weryfikacja koszyka
 Given Otwórz stronę główną T-Mobile
 And Z górnej belki wybierz "Sklep"
 And Kliknij "Bez abonamentu" z sekcji "Smartfony"
-And Kliknij element o nazwie "Samsung Galaxy A37 5G"
+And Kliknij element o nazwie "Xiaomi Redmi 15C 5G"
     And Dodaj produkt do koszyka
-    And wyswietl ceny
     Then Zweryfikuj ceny na stronie koszyka
 And Otwórz stronę główną T-Mobile
     And Kliknij ikonę koszyka
@@ -14,3 +13,4 @@ And Otwórz stronę główną T-Mobile
       Then Zweryfikuj czy urządzenie jest widoczne w koszyku
 
 
+#"Samsung Galaxy A37 5G"

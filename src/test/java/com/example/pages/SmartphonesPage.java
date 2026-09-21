@@ -16,16 +16,23 @@ public class SmartphonesPage extends BasePage {
     }
 
     public void clickDeviceFromList(String deviceName) {
+        waitForSmartphonesPageToBeVisible();
         List<WebElement> devices = getSmartphonesList();
         for (WebElement device : devices) {
             if (device.getText().contains(deviceName)) {
+                scrollToElementWithJavaScript(device);
                 clickByAction(device);
                 return;
             }
         }
-        throw new IllegalStateException("Device not found in the list: " + deviceName);
+        throw new IllegalStateException("Urządzenie nie znalezione w liście: " + deviceName);
+
     }
 
+
+    public void waitForSmartphonesPageToBeVisible() {
+        waitForElementIsVisible(SMARTHPHONES_LIST);
+    }
     public boolean isPageVisible() {
         return isDisplayed(By.xpath("//*[contains(normalize-space(.), 'Smartfony') or contains(normalize-space(.), 'telefony')][1]"));
     }
