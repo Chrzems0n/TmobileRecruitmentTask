@@ -31,12 +31,16 @@ public final class WebDriverFactory {
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("-- --disable-notifications");
+
         System.out.println("Chrome driver created with options: " + options);
         return new ChromeDriver(options);
     }
 
     private static WebDriver createFirefoxDriver() {
         FirefoxOptions options = new FirefoxOptions();
+        options.addPreference("dom.webnotifications.enabled", false);
+        options.addPreference("signon.rememberSignons", false);
         //options.addArguments("--headless=false");
         System.out.println("Firefox driver created with options: " + options);
         return new FirefoxDriver(options);

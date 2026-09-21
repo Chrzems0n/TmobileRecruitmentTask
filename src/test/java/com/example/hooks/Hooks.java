@@ -21,8 +21,8 @@ public class Hooks {
             return;
         }
 
-        WebDriver driver = WebDriverFactory.createDriver(System.getProperty("browser", "firefox"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        WebDriver driver = WebDriverFactory.createDriver(System.getProperty("browser", "chrome"));
+        driver.manage().timeouts().implicitlyWait(Duration.ZERO);
         driver.manage().window().maximize();
         WebDriverProvider.setDriver(driver);
     }
@@ -42,7 +42,7 @@ public class Hooks {
             }
         } catch (IllegalStateException ignored) {
         } finally {
-           // WebDriverProvider.quitDriver();
+            WebDriverProvider.quitDriver();
         }
     }
 }

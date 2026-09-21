@@ -2,6 +2,7 @@ package com.example.pages;
 
 import com.example.driver.WebDriverProvider;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,10 +19,12 @@ public abstract class BasePage {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
     private boolean cookiesAccepted;
+    private static final Duration EXPLICIT_WAIT = Duration.ofSeconds(30);
+
 
     protected BasePage() {
         this.driver = WebDriverProvider.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        this.wait = new WebDriverWait(driver, EXPLICIT_WAIT);
     }
 
 
@@ -102,6 +105,18 @@ public abstract class BasePage {
     protected void waitScrollToElementAndClick(WebElement element) {
         scrollToElement(element);
         waitForElementIsClickable(element).click();
+    }
+
+    protected void scrollToElementWithJavaScript(WebElement element) {
+        ((JavascriptExecutor) getDriver()).executeScript(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
+                element
+        );
+    }
+
+    protected WebElement getWebElement(By locator) {
+        return driver.findElement(locator);
+
     }
 
 }

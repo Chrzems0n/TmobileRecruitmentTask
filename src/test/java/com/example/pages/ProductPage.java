@@ -22,6 +22,7 @@ public class ProductPage extends BasePage {
     private static final By DEVICE_TOTAL_PRICE= By.xpath("//article[contains(@class,'Price')]//span");
 
     private static final  By PRODUCT_PAGE_PRODUCT_NAME= By.xpath("//*[contains(@data-qa,'PRD_ProductName')]");
+    private static final By PRODUCT_PAGE_RADY_TO_ACTION=By.xpath("//*[@id='dyt_productViewDesktop']");
 
     public boolean isProductPageVisible() {
         return isDisplayed(PRODUCT_TITLE);
@@ -32,8 +33,7 @@ public class ProductPage extends BasePage {
     }
 
     public String getProductOnStartPriceText() {
-        WebElement priceElement = waitForElementIsVisible(DO_ZAPLATY_NA_START);
-        return priceElement.getText().trim();
+        return getWebElement(DO_ZAPLATY_NA_START).getText().trim();
     }
 
     public int getProductOnStartPriceValue() {
@@ -43,8 +43,7 @@ public class ProductPage extends BasePage {
 
 
     public String getProductMonthlyPriceText() {
-        WebElement priceElement = waitForElementIsVisible(DO_ZAPLATY_MIESIECZNIE);
-        return priceElement.getText().trim();
+        return getWebElement(DO_ZAPLATY_MIESIECZNIE).getText().trim();
     }
 
     public int getProductMonthlyPriceValue() {
@@ -52,21 +51,21 @@ public class ProductPage extends BasePage {
     }
 
     public String getProductName() {
-        waitForElementIsVisible( PRODUCT_PAGE_PRODUCT_NAME);
-        String productName = getText( PRODUCT_PAGE_PRODUCT_NAME);
+        String productName = getWebElement(PRODUCT_PAGE_PRODUCT_NAME).getText().trim();
         return productName.trim();
     }
 
     public String getDeviceTotalPriceText() {
-        WebElement priceElement = waitForElementIsVisible(DEVICE_TOTAL_PRICE);
-        return priceElement.getText().trim();
+        return getWebElement(DEVICE_TOTAL_PRICE).getText().trim();
     }
 
     public int getDeviceTotalPriceValue() {
         return TextParser.parseInt(getDeviceTotalPriceText().trim());
     }
 
-
+    public void waitForProductPageToBeVisible() {
+        waitForElementIsVisible(PRODUCT_PAGE_RADY_TO_ACTION);
+    }
 
 
 }
