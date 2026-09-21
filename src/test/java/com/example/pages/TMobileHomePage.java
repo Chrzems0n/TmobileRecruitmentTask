@@ -7,7 +7,6 @@ public class TMobileHomePage extends BasePage {
     private static final String HOME_URL = "https://www.t-mobile.pl";
     private static final String TOP_BAR_ITEM_TEMPLATE = "//button[contains(@class,'ods-typography') and normalize-space()='%s']";
     private static final By LOGO_T_MOBILE = By.xpath("//*[@id='carousel-heading-Najlepsze oferty na abonament, internet światłowodowy, TV i smartfony']");
-    private static final By SHOP_MENU = By.xpath("//button[normalize-space()='Sklep']");
     private static final By SMARTPHONES_SECTION = By.xpath("//div[contains(normalize-space(.), 'Smartfony')]//*[self::a or self::button or self::span][normalize-space()='Smartfony']");
     private static final By WITHOUT_CONTRACT_LINK = By.xpath("//a[normalize-space()='Bez abonamentu' or contains(normalize-space(.), 'Bez abonamentu')]");
     private static final By IKONA_KOSZYKA = By.xpath("//a[@aria-label='Koszyk']");

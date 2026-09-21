@@ -24,10 +24,6 @@ public class ProductPage extends BasePage {
     private static final  By PRODUCT_PAGE_PRODUCT_NAME= By.xpath("//*[contains(@data-qa,'PRD_ProductName')]");
     private static final By PRODUCT_PAGE_RADY_TO_ACTION=By.xpath("//*[@id='dyt_productViewDesktop']");
 
-    public boolean isProductPageVisible() {
-        return isDisplayed(PRODUCT_TITLE);
-    }
-
     public void addToCart() {
         click(DODAJ_DO_KOSZYKA);
     }
