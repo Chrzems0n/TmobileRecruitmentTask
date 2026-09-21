@@ -40,7 +40,7 @@ To polecenie uruchamia zarówno scenariusz API, jak i scenariusz GUI z użyciem 
 Jeżeli parametr `browser` nie zostanie podany, konfiguracja projektu użyje domyślnie Firefoksa:
 
 ```powershell
-mvn clean test; if ($?) { mvn allure:serve }
+mvn clean test; mvn allure:serve 
 ```
 
 ## Raport statyczny bez uruchamiania serwera
